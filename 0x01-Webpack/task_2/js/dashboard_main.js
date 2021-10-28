@@ -1,26 +1,19 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import '../css/main.css';
 
-$(document).ready(function() {
-  $('body').prepend(`<span id='logo' ></span>`);
-  $('body').append('<p>Holberton Dashboard</p>');
-  $('body').append('<p>Dashboard data for the students</p>');
-  $('body').append(`<button>Click here to get started</button>`);
-  $('body').append(`<p id='count'></p>`);
-  $('body').append('<p>Copyright - Holberton School</p>');
-});
+$('body').append('<div id="logo"></div>')
+$('body').append('<p>Holberton Dashboard</p>');
+$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<button>Click here to get started</button>');
+$('body').append('<p id="count"></p>');
+$('body').append('<p>Copyright - Holberton School</p>');
 
-// increments and renders a counter for each time a button is clicked
-function updateCounter() {
-  $(document).ready(function() {
-    let counter = $('#count').html()
-    $('button').click(function() {
-        counter++;
-        $('#count').html(`${counter} clicks on the button`);
-    });
-  });
-}
+let count = 0;
 
-_.debounce(updateCounter, 250);
-updateCounter();
+function updateCounter() { count++; }
 
+$('button').click(_.debounce(() => {
+  updateCounter();
+  $('#count').text(`${count} clicks on the button`);
+}));

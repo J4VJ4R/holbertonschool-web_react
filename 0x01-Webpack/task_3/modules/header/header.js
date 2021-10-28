@@ -1,7 +1,7 @@
-import $ from 'jquery';
-import './header.css';
+import $ from 'jquery'
+import './header.css'
 
-$('body').prepend(`<span id='logo' ></span>`);
-$('body').append('<p>Holberton Dashboard</p>');
-$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<div id="logo"></div>');
+$('body').append('<h1>Holberton Dashboard</h1>');
+
 console.log('Init header');

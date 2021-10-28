@@ -1,20 +1,16 @@
-import $ from 'jquery';
+import $ from 'jquery'
 import _ from 'lodash';
-import './body.css';
+import './body.css'
 
-$('body').append(`<button>Click here to get started</button>`);
-$('body').append(`<p id='count'></p>`);
+$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<button>Click here to get started</button>');
+$('body').append('<p id="count"></p>');
 
-// increments and renders a counter for each time a button is clicked
-function updateCounter() {
-  $(document).ready(function() {
-    let counter = $('#count').html()
-    $('button').click(function() {
-        counter++;
-        $('#count').html(`${counter} clicks on the button`);
-    });
-  });
-}
+let count = 0;
 
-_.debounce(updateCounter, 250);
-updateCounter();
+const updateCounter = () => { count++; }
+
+$('button').click(_.debounce(() => {
+  updateCounter();
+  $('#count').text(`${count} clicks on the button`);
+}));
