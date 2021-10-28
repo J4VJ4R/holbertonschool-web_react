@@ -1,5 +1,3 @@
-/** Renders table based on a list of objects */
-
 interface Student {
   firstName: string;
   lastName: string;
@@ -7,34 +5,36 @@ interface Student {
   location: string;
 }
 
-const studentA: Student = {
-  firstName: 'Sofia',
-  lastName: 'Cheung',
-  age: 19,
-  location: 'California',
-}
+const student1: Student = {
+  firstName: 'Francisco',
+  lastName: 'Muñoz',
+  age: 23,
+  location: 'Bogotá'
+};
+const student2: Student = {
+  firstName: 'Angela',
+  lastName: 'Villa',
+  age: 29,
+  location: 'Medellín'
+};
 
-const studentB: Student = {
-  firstName: 'Mafer',
-  lastName: 'Morales',
-  age: 19,
-  location: 'Panama',
-}
+const studentsList: Array<Student> = [student1, student2];
 
-const studentList = [studentA, studentB];
+const tableHtml: HTMLTableElement = document.createElement('table');
+const theadHtml: HTMLTableSectionElement = document.createElement('thead');
+const tbodyHtml: HTMLTableSectionElement = document.createElement('tbody');
 
-const table = document.createElement('table');
-const tbody = document.createElement('tbody');
+const rowHeader: HTMLTableRowElement = theadHtml.insertRow();
+rowHeader.insertCell(0).innerHTML = 'firstName';
+rowHeader.insertCell(1).innerHTML = 'location';
 
-studentList.forEach((obj) => {
-  const row = document.createElement('tr');
-  const cellName = document.createElement('td');
-  const cellLocation = document.createElement('td');
-  cellName.textContent = obj.firstName;
-  cellLocation.textContent = obj.location;
-  row.appendChild(cellName);
-  row.appendChild(cellLocation);
-  tbody.appendChild(row);
+tableHtml.append(theadHtml);
+
+studentsList.forEach(student => {
+  const row: HTMLTableRowElement = tbodyHtml.insertRow();
+  row.insertCell(0).innerHTML = student.firstName;
+  row.insertCell(1).innerHTML = student.location;
 });
-table.appendChild(tbody);
-document.body.appendChild(table);
+
+tableHtml.append(tbodyHtml);
+document.body.appendChild(tableHtml);

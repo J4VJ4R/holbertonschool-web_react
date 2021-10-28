@@ -1,16 +1,15 @@
-interface DirectorsInterface {
+interface DirectorInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
-  workDirectorTasks(): string; 
+  workDirectorTasks(): string;
 }
-
 interface TeacherInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
   workTeacherTasks(): string;
 }
 
-class Director implements DirectorsInterface {
+export class Director implements DirectorInterface {
   workFromHome(): string {
     return 'Working from home';
   }
@@ -22,7 +21,7 @@ class Director implements DirectorsInterface {
   }
 }
 
-class Teacher implements TeacherInterface {
+export class Teacher implements TeacherInterface {
   workFromHome(): string {
     return 'Cannot work from home';
   }
@@ -34,30 +33,27 @@ class Teacher implements TeacherInterface {
   }
 }
 
-function createEmployee(firstName: string, lastName: string, salary: number | string): Director | Teacher {
-  if (salary as number && salary < 500) return new Teacher();
-  else return new Director(); 
+export function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof(salary) === 'number' && salary < 500) return new Teacher();
+  return new Director();
 }
 
-console.log(createEmployee('Guillaume', 'Salva', 200));
-console.log(createEmployee('John', 'Doe', 1000));
-console.log(createEmployee('Gerard', 'Zuck', '$500'));
-
-function isDirector(employee: Director | Teacher): employee is Director {
-  return (employee instanceof Director) ? true : false;
+export function isDirector(employee: DirectorInterface | TeacherInterface): employee is Director {
+  return 'workDirectorTasks' in employee;
 }
 
-function executeWork(employee: Director | Teacher): string {
-  return isDirector(employee) ? employee.workDirectorTasks() : employee.workTeacherTasks();
+export function executeWork(employee: DirectorInterface | TeacherInterface): string {
+  if (isDirector(employee)) {
+    console.log(employee.workDirectorTasks());
+    return employee.workDirectorTasks();
+  }
+  console.log(employee.workTeacherTasks());
+  return employee.workTeacherTasks();
 }
-
-console.log(executeWork(createEmployee('Guillaume', 'Salva', 200)));
-console.log(executeWork(createEmployee('John', 'Doe', 1000)));
 
 type Subjects = 'Math' | 'History';
-function teachClass(todayClass: Subjects): string{
-  return todayClass === 'Math' ? 'Teaching Math' : 'Teaching History';
-}
 
-console.log(teachClass('Math'));
-console.log(teachClass('History'));
+export function teachClass(todayClass:Subjects): string {
+  if (todayClass === 'Math') return 'Teaching Math';
+  if (todayClass === 'History') return 'Teaching History';
+}
