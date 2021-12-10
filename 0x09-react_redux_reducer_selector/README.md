@@ -8,4 +8,4 @@ What you should learn from this project:
 
 ## Author
 
-**Joshua Martinez** - [dantsub](https://github.com/dantsub)
+**Javier Jaramillo** - [dantsub](https://github.com/j4vj4r)
